@@ -51,11 +51,15 @@ class Tag(models.Model):
     @classmethod
     def display_tags(cls):
         tags = cls.objects.all()
+        return tags
 
     @classmethod
     def get_single_tag(cls, pk):
         tag = cls.objects.get(pk=pk)
         return tag
+
+    def __str__(self):
+        return self.category
 
 
 class Project(models.Model):
@@ -97,3 +101,6 @@ class Project(models.Model):
     def display_users_projects(cls, id):
         projects = cls.objects.filter(user_id=id)
         return projects
+
+    def __str__(self):
+        return self.title

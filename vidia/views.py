@@ -32,7 +32,7 @@ def submit_project(request):
 
 
 @login_required(login_url="/accounts/login")
-def create_tag(request):
+def create_project_tag(request):
     user = request.user
     new_tag_form = TagForm(request.POST)
 
@@ -41,6 +41,21 @@ def create_tag(request):
         tag.user = user
         tag.save()
         return redirect(submit_project)
+    else:
+        new_tag_form = TagForm(request.POST)
+    return render(request, 'new_tag.html', {"new_tag_form": new_tag_form})
+
+
+@login_required(login_url="/accounts/login")
+def create_tag(request):
+    user = request.user
+    new_tag_form = TagForm(request.POST)
+
+    if user.is_authenticated and new_tag_form.is_valid():
+        tag = new_tag_form.save(commit=False)
+        tag.user = user
+        tag.save()
+        return redirect(index)
     else:
         new_tag_form = TagForm(request.POST)
     return render(request, 'new_tag.html', {"new_tag_form": new_tag_form})

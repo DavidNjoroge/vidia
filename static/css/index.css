@@ -1,6 +1,12 @@
-div.help-block {
-  display: none;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  color: #737373;
-}
+ .help-block {
+   display: none;
+   margin-top: 5px;
+   margin-bottom: 10px;
+   color: #737373;
+ }
+
+ .add_tag {
+   margin-top: 2%;
+   margin-left: 60%;
+   margin-bottom: 2%;
+ }

@@ -44,10 +44,10 @@
               <!-- action="/" -->
               {% if user.is_authenticated %}
                 <li>
-                  <a href="/">Discover</a>
+                  <a href="{% url 'create_tag' %}">Tag</a>
                 </li>
                 <li>
-                  <a href="/">Submit</a>
+                  <a href="{% url 'submit_project' %}">Submit</a>
                 </li>
                 <li>
                   <a href="/">{{ user.username }}</a>
@@ -60,7 +60,10 @@
                   <a href="/accounts/login">Login</a>
                 </li>
                 <li>
-                  <a href="/">Submit</a>
+                  <a href="{% url 'create_tag' %}">Tag</a>
+                </li>
+                <li>
+                  <a href="{% url 'submit_project' %}">Submit</a>
                 </li>
                 <li></li>
               {% endif %}

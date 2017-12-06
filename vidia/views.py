@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Project, Tag
-from .forms import ProjectForm, TagForm
+from .forms import ProjectForm, TagForm,RateForm
 
 
 # index page
 def index(request):
-    return render(request, 'index.html')
+    all_projects=Project.objects.all()
+    print(len(all_projects))
+    return render(request, 'index.html',{'projects':all_projects})
 
 # project
 
@@ -59,3 +61,15 @@ def create_tag(request):
     else:
         new_tag_form = TagForm(request.POST)
     return render(request, 'new_tag.html', {"new_tag_form": new_tag_form})
+
+@login_required(login_url='/accounts/login')
+def project(request,project_id):
+    project=Project.get_single_project(project_id)
+    print(project)
+    form=RateForm()
+    if request.method == 'POST':
+        form=RateForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print(data['content'])
+    return render(request,'project.html',{'project':project,'form':form})

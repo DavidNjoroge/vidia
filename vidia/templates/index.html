@@ -7,6 +7,18 @@
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
+{% for project in projects %}
+<div class="row">
+  <div class="col-md-4">
+    <img class="img-responsive" src="{{project.picture.url}}" alt="">
+  </div>
+  <div class="col-md-8">
+    <h1><strong> <a href="{% url 'project' project.id %}"> {{project.title}}</a></strong></h1>
+    <p>{{project.description}}</p>
+    <p><strong>by :</strong>{{project.user.username}}    <a href="{{project.github_link}}">Github</a>     <a href="{{project.deployed_link}}">Deployed</a></p>
+    <p><strong>Design: 9</strong> <strong>Userbility: 9</strong> <strong>Content: 9</strong></p>
 
-  <h1>Vidia</h1>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

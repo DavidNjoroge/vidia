@@ -15,3 +15,17 @@ class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
         exclude = ['user', ]
+
+class RateForm(forms.Form):
+    design=forms.IntegerField(
+        max_value=10,
+        min_value=0
+    )  
+    Usability=forms.IntegerField(
+        max_value=10,
+        min_value=0
+    )    
+    content=forms.IntegerField(
+        max_value=10,
+        min_value=0
+    )

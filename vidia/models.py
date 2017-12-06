@@ -105,9 +105,38 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-# class Rating(models.Model):
-#     user=models.ForeignKey(User,on_delete=models.CASCADE)
-#     project=models.ForeignKey(Project,on_delete=models.CASCADE)
-#     content=models.IntegerField()
-#     usability=models.IntegerField()
-#     design=models.IntegerField()
+class Rating(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    project=models.ForeignKey(Project,on_delete=models.CASCADE)
+    content=models.IntegerField()
+    usability=models.IntegerField()
+    design=models.IntegerField()
+    
+    def save_rating(self):
+        self.save()
+
+    @classmethod
+    def get_average_rating(cls,project_id):
+        projects=Rating.objects.filter(project=project_id)
+
+        aver_list=[]
+
+        count_design=0
+        count_usability=0
+        count_content=0
+
+        for project in projects:
+            count_design +=project.design   
+
+            count_usability +=project.usability
+            
+            count_content+=project.content
+            
+        aver_list.append(int(count_design/len(projects)))
+        aver_list.append(int(count_usability/len(projects)))
+        aver_list.append(int(count_content/len(projects)))
+
+        return aver_list
+
+    def __str__(self):
+        return self.project.title
